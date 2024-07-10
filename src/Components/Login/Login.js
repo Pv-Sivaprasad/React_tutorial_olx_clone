@@ -7,15 +7,18 @@ function Login() {
 
   const [email,setEmail]= useState('')
   const [password,setPassword]=useState('')
+  const [error, setError] = useState('');
   const {firebase} = useContext(firebaseContext)
   const history=useHistory()
+  
 
   const handleLogin =(e)=>{
       e.preventDefault()
       firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
         history.push('/')
       }).catch((error)=>{
-        alert('Invalid Email/ Password')
+        // alert('Invalid Email/ Password');
+        setError('Invalid email/password')
       })
   }
 
@@ -49,6 +52,7 @@ function Login() {
             defaultValue="Doe"
           />
           <br />
+          {error && <span className="error">{error}</span>}
           <br />
           <button>Login</button>
         </form>
